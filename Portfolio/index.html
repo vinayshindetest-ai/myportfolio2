@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Software Engineer Portfolio</title>
+  <style>
+    /* Reset & base */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: #121212;
+      color: #eee;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+    a {
+      color: #00bcd4;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    /* Navbar */
+    nav {
+      position: sticky;
+      top: 0;
+      background: #1f1f1f;
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 3rem;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.7);
+    }
+    nav .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #00bcd4;
+    }
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    nav ul li {
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    nav ul li:hover {
+      color: #00bcd4;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 1rem;
+      background: linear-gradient(135deg, #00bcd4 0%, #006064 100%);
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      font-weight: 900;
+      color: #fff;
+    }
+    .hero .typing {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #e0f7fa;
+      border-right: 2px solid #e0f7fa;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 4s steps(30, end) forwards, blink 0.75s step-end infinite;
+      max-width: 350px;
+      margin: 0 auto;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 350px; }
+    }
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    /* Sections */
+    section {
+      max-width: 900px;
+      margin: 4rem auto;
+      padding: 0 1rem;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #00bcd4;
+      display: inline-block;
+      padding-bottom: 0.3rem;
+    }
+
+    /* About Me */
+    #about {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+      color: #ccc;
+    }
+    #about img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #00bcd4;
+      box-shadow: 0 4px 8px rgba(0, 188, 212, 0.5);
+    }
+    #about .about-text {
+      flex: 1;
+      min-width: 280px;
+    }
+    #about .about-text p {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+    #about .personal-info {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: #b0bec5;
+    }
+    #about .personal-info div {
+      margin-bottom: 0.3rem;
+    }
+    #about .btn-resume {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.4rem;
+      background: #00bcd4;
+      color: #121212;
+      font-weight: 700;
+      border-radius: 40px;
+      transition: background 0.3s ease;
+      text-decoration: none;
+      box-shadow: 0 4px 8px #00bcd4aa;
+    }
+    #about .btn-resume:hover {
+      background: #008ba3;
+      box-shadow: 0 6px 12px #008ba3cc;
+      color: #fff;
+    }
+
+    /* Skills */
+    .skill {
+      margin-bottom: 1rem;
+    }
+    .skill-name {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      color: #00bcd4;
+    }
+    .skill-bar {
+      background: #333;
+      border-radius: 50px;
+      overflow: hidden;
+      height: 20px;
+    }
+    .skill-progress {
+      height: 100%;
+      width: 0;
+      background: #00bcd4;
+      border-radius: 50px;
+      transition: width 1.5s ease-in-out;
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .project-card {
+      background: #1f1f1f;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.7);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 15px #00bcd4aa;
+    }
+    .project-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #00bcd4;
+    }
+    .project-desc {
+      flex-grow: 1;
+      color: #bbb;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .project-links a {
+      margin-right: 1rem;
+      color: #00bcd4;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .project-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Contact */
+    #contact p {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    #contact a {
+      color: #00bcd4;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #111;
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 4rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      #about {
+        flex-direction: column;
+        text-align: center;
+      }
+      #about .about-text {
+        min-width: auto;
+      }
+    }
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      nav {
+        padding: 1rem 1.5rem;
+      }
+      nav ul {
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">YourName</div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h1>Hi, I'm YourName</h1>
+    <div class="typing">Software Engineer | Problem Solver | Tech Enthusiast</div>
+  </section>
+
+  <section id="about">
+    <img src="https://i.pravatar.cc/180" alt="Your Name" />
+    <div class="about-text">
+      <h2>About Me</h2>
+      <p>
+        Passionate software engineer with 5+ years of experience in building scalable web applications and backend services. Skilled in JavaScript, Python, and cloud technologies. Always eager to learn and implement new solutions.
+      </p>
+      <div class="personal-info">
+        <div><strong>Location:</strong> New York, USA</div>
+        <div><strong>Phone:</strong> +1 (555) 123-4567</div>
+        <div><strong>Email:</strong> <a href="mailto:your.email@example.com">your.email@example.com</a></div>
+      </div>
+      <a href="Your_Resume.pdf" download class="btn-resume">Download Resume</a>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skill">
+      <div class="skill-name">JavaScript</div>
+      <div class="skill-bar"><div class="skill-progress" data-progress="90%"></div></div>
+    </div>
+    <div class="skill">
+      <div class="skill-name">Python</div>
+      <div class="skill-bar"><div class="skill-progress" data-progress="85%"></div></div>
+    </div>
+    <div class="skill">
+      <div class="skill-name">React</div>
+      <div class="skill-bar"><div class="skill-progress" data-progress="80%"></div></div>
+    </div>
+    <div class="skill">
+      <div class="skill-name">Node.js</div>
+      <div class="skill-bar"><div class="skill-progress" data-progress="75%"></div></div>
+    </div>
+    <div class="skill">
+      <div class="skill-name">Docker & Kubernetes</div>
+      <div class="skill-bar"><div class="skill-progress" data-progress="70%"></div></div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-title">Project One</div>
+        <div class="project-desc">A responsive web app built with React and Node.js that helps users manage tasks efficiently.</div>
+        <div class="project-links">
+          <a href="#" target="_blank" rel="noopener">GitHub</a>
+          <a href="#" target="_blank" rel="noopener">Live Demo</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-title">Project Two</div>
+        <div class="project-desc">An API service created with Python Flask, designed to support a mobile app backend with authentication and real-time updates.</div>
+        <div class="project-links">
+          <a href="#" target="_blank" rel="noopener">GitHub</a>
+          <a href="#" target="_blank" rel="noopener">Live Demo</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-title">Project Three</div>
+        <div class="project-desc">Containerized microservices using Docker and Kubernetes to enable scalable deployment in cloud environments.</div>
+        <div class="project-links">
+          <a href="#" target="_blank" rel="noopener">GitHub</a>
+          <a href="#" target="_blank" rel="noopener">Live Demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+    <p>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">linkedin.com/in/yourprofile</a></p>
+    <p>GitHub: <a href="https://github.com/yourusername" target="_blank" rel="noopener">github.com/yourusername</a></p>
+  </section>
+
+  <footer>
+    &copy; 2025 YourName. All rights reserved.
+  </footer>
+
+  <script>
+    // Animate skill bars on scroll
+    function animateSkills() {
+      const skillsSection = document.getElementById('skills');
+      const skillProgressBars = document.querySelectorAll('.skill-progress');
+      const rect = skillsSection.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom >= 0) {
+        skillProgressBars.forEach(bar => {
+          bar.style.width = bar.getAttribute('data-progress');
+        });
+      }
+    }
+
+    // Reveal sections on scroll
+    function revealOnScroll() {
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          section.classList.add('visible');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', () => {
+      animateSkills();
+      revealOnScroll();
+    });
+
+    // Initial trigger
+    window.addEventListener('load', () => {
+      revealOnScroll();
+      animateSkills();
+    });
+  </script>
+
+</body>
+</html>
